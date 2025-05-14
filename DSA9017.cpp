@@ -1,15 +1,16 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int maxn = 1005;
-int n;
+
+#define maxn 1005
+int v;
 vector<int> adj[maxn];
 vector<int> visited;
 void dfs(int i)
 {
     visited[i] = 1;
-    for (int u : adj[i])
+    for(int u : adj[i])
     {
-        if (!visited[u])
+        if(!visited[u])
         {
             dfs(u);
         }
@@ -17,46 +18,41 @@ void dfs(int i)
 }
 int main()
 {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout.tie(nullptr);
     int tt;
     cin >> tt;
-    while (tt--)
+    while(tt--)
     {
-        cin >> n;
-        for (int i = 1; i <= n; ++i)
+        cin >> v;
+        for(int i = 1; i <= v; ++i)
         {
             adj[i].clear();
         }
         visited.assign(maxn, 0);
         bool flag = true;
-        int maxNode = -1e9;
-        for (int i = 0; i < n - 1; ++i)
+        for(int i = 1; i <= v - 1; ++i)
         {
-            int u, v;
-            cin >> u >> v;
-            adj[u].push_back(v);
-            adj[v].push_back(u);
-            maxNode = max({maxNode, u, v});
-        }
-        if (n - 1 != maxNode - 1)
-        {
-            cout << "NO" << "\n";
-            break;
+            int x, y;
+            cin >> x >> y;
+            adj[x].push_back(y);
+            adj[y].push_back(x);
         }
         dfs(1);
-        for (int i = 1; i <= n; ++i)
+        for(int i = 1; i <= v; ++i)
         {
-            if (!visited[i])
+            if(!visited[i])
             {
                 cout << "NO" << "\n";
                 flag = false;
                 break;
             }
         }
-        if (flag)
+        if(flag)
         {
             cout << "YES" << "\n";
         }
     }
-
     return 0;
 }
